@@ -173,6 +173,21 @@ APPEND_SLASH = False
 
 AUTH_USER_MODEL = "core.User"
 
+# Logging settings
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",  # Adjust the log level as needed
+    },
+}
+
 # Versatile Image settings
 VERSATILEIMAGEFIELD_SETTINGS = {
     # The amount of time, in seconds, that references to created images
