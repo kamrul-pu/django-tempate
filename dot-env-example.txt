@@ -1,0 +1,12 @@
+SECRET_KEY=django-insecure-change-me-in-production
+DEBUG=True
+ENABLE_SILK=False
+
+# Database — uncomment one of the following:
+
+# PostgreSQL (production)
+# DATABASE_URL=postgres://user:password@host:5432/dbname
+
+# SQLite (development) — path is relative to repo root
+# DATABASE_URL=sqlite:///dev_db.sqlite3
+# Note: when DEBUG=True, SQLite is used automatically without setting DATABASE_URL

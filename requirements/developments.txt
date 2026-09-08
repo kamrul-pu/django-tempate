@@ -1,0 +1,11 @@
+dj-database-url
+Django
+django-autoslug
+django-cors-headers
+django-filter
+django-silk
+djangorestframework
+djangorestframework-simplejwt
+drf-yasg
+psycopg2-binary
+python-dotenv==1.0.1
