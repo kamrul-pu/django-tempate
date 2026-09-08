@@ -15,7 +15,6 @@ from django.db import models
 from common.models import (
     BaseModelWithUID,
     BaseModelWithOrg,
-    NameSlugDescriptionBaseModel,
 )
 
 from core.choices import (
@@ -60,7 +59,18 @@ class UserManager(BaseUserManager):
         return user
 
 
-class Organization(NameSlugDescriptionBaseModel):
+class Organization(BaseModelWithUID):
+    """The tenant/vendor model. Deliberately does not reference User (no
+    entry_by/updated_by) to avoid a circular FK: User -> Organization ->
+    User."""
+
+    name = models.CharField(max_length=255)
+    slug = AutoSlugField(
+        populate_from="name",
+        unique=True,
+        editable=False,
+    )
+    description = models.TextField(blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
     logo = models.CharField(max_length=2048, blank=True)
     website = models.CharField(max_length=2048, blank=True)
