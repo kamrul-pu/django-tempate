@@ -14,6 +14,8 @@ from rest_framework.permissions import (
     AllowAny,
 )
 
+from common.choices import Status
+
 from core.serializers.user import (
     UserListSerializer,
     UserDetailSerializer,
@@ -27,13 +29,13 @@ User = get_user_model()
 class UserList(ListCreateAPIView):
     permission_classes = (IsAdminUser,)
     serializer_class = UserListSerializer
-    queryset = User.objects.filter(status="ACTIVE").order_by("-pk")
+    queryset = User.objects.filter(status=Status.ACTIVE).order_by("-pk")
 
 
 class UserDetail(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAdminUser,)
     serializer_class = UserDetailSerializer
-    queryset = User.objects.filter(status="ACTIVE").order_by("-pk")
+    queryset = User.objects.filter(status=Status.ACTIVE).order_by("-pk")
     lookup_field = "uid"
 
 
