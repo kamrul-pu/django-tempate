@@ -56,8 +56,7 @@ class ListAPICustomView(ListAPIView):
 
         return (
             self.get_serializer_class()
-            .Meta.model()
-            .get_all_actives()
+            .Meta.model.get_all_actives()
             .select_related(*related_fields)
             .only(*only_fields)
         ).order_by("-pk")
@@ -122,8 +121,7 @@ class ListCreateAPICustomView(ListCreateAPIView):
             only_fields = []
         return (
             self.get_serializer_class()
-            .Meta.model()
-            .get_all_actives()
+            .Meta.model.get_all_actives()
             .select_related(*related_fields)
             .only(*only_fields)
         ).order_by("-pk")

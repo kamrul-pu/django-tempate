@@ -40,10 +40,14 @@ MEDIA_DIR = os.path.realpath(os.path.join(HOME_DIR, "media"))
 SECRET_KEY = os.environ.get("SECRET_KEY", "")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", False)
-ENABLE_SILK = os.environ.get("ENABLE_SILK", False)
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+ENABLE_SILK = os.environ.get("ENABLE_SILK", "False") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get("ALLOWED_HOSTS", "").split(",")
+    if host.strip()
+]
 
 
 # Application definition
@@ -117,7 +121,7 @@ WSGI_APPLICATION = "app.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 if DEBUG:
-    DATABASE_URL = os.path.join(REPO_DIR, "dev_db.sqlite3")
+    DATABASE_URL = "sqlite:///" + os.path.join(REPO_DIR, "dev_db.sqlite3")
 else:
     DATABASE_URL = os.environ.get("DATABASE_URL", "")
 
@@ -226,6 +230,9 @@ SIMPLE_JWT = {
 
 # Cors alowed origin
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
+    origin.strip()
+    for origin in os.environ.get(
+        "CORS_ALLOWED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000"
+    ).split(",")
+    if origin.strip()
 ]

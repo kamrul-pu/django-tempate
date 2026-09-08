@@ -32,7 +32,7 @@ class UserDetailSerializer(UserListSerializer):
             "organization",
             "phone",
         )
-        read_only_fields = UserListSerializer.Meta.read_only_fields + ()
+        read_only_fields = UserListSerializer.Meta.read_only_fields + ("organization",)
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -98,6 +98,8 @@ class MeSerializer(serializers.ModelSerializer):
         read_only_fields = (
             "id",
             "uid",
+            "organization",
+            "kind",
             "created_at",
             "updated_at",
         )

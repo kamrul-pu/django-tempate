@@ -13,9 +13,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python deps into a prefix dir (not system)
-COPY ./requirements/developments.txt .
+COPY ./requirements/dev.txt .
 RUN pip install --upgrade pip \
-    && pip install --prefix=/install --no-cache-dir -r developments.txt
+    && pip install --prefix=/install --no-cache-dir -r dev.txt
 
 
 # ── Stage 2: Runtime ──────────────────────────────────────────────────────────

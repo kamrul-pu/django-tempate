@@ -28,11 +28,13 @@ class BaseModelWithUID(models.Model):
     class Meta:
         abstract = True
 
-    def get_all_actives(self):
-        return self.__class__.objects.filter(status=Status.ACTIVE).order_by("-pk")
+    @classmethod
+    def get_all_actives(cls):
+        return cls.objects.filter(status=Status.ACTIVE).order_by("-pk")
 
-    def get_all_non_inactives(self):
-        return self.__class__.objects.exclude(status=Status.INACTIVE).order_by("-pk")
+    @classmethod
+    def get_all_non_inactives(cls):
+        return cls.objects.exclude(status=Status.INACTIVE).order_by("-pk")
 
 
 class BaseModelWithOrg(BaseModelWithUID):
@@ -83,15 +85,6 @@ class NameSlugDescriptionBaseModel(BaseModelWithUID):
         abstract = True
 
 
-class NameSlugDescriptionBaseModelWithOrg(NameSlugDescriptionBaseModel):
-    organization = models.ForeignKey(
-        "core.Organization",
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-        verbose_name=("organization"),
-        related_name="%(app_label)s_%(class)s_organization",
-    )
-
+class NameSlugDescriptionBaseModelWithOrg(NameSlugDescriptionBaseModel, BaseModelWithOrg):
     class Meta:
         abstract = True
